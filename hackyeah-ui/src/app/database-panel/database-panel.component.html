@@ -1,0 +1,56 @@
+<mat-card class="db-card">
+    <div class="db-info">
+      Currently used database: {{ dbQueried }}
+      <button mat-icon-button matTooltip="Instructions on how to use the system" matTooltipPosition="above">
+        <mat-icon>help_outline</mat-icon>
+      </button>
+    </div>
+  
+    <mat-divider></mat-divider> 
+  
+    <div class="card-content">
+      <mat-card class="left-column">
+        <mat-card class="input-card">
+          <div class="input-section">
+            <textarea matInput placeholder="Enter your question" [(ngModel)]="userInput" 
+                      cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" 
+                      class="text-input-area"></textarea>
+            <button mat-raised-button color="primary" (click)="generateSql()">Generate SQL</button>
+          </div>
+        </mat-card>
+  
+        <mat-divider></mat-divider>
+  
+        <mat-card class="sql-card">
+          <div class="sql-section">
+            <textarea matInput placeholder="Generated SQL" [(ngModel)]="generatedSql" 
+            cdkTextareaAutosize class="sql-input" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" 
+            class="text-input-area"></textarea>
+            <button mat-raised-button color="accent" (click)="executeQuery()">Execute Query</button>
+          </div>
+        </mat-card>
+      </mat-card>
+  
+      <mat-divider [vertical]="true"></mat-divider>
+  
+      <mat-card class="right-column">
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+          
+          <mat-table *ngIf="ddlDataSource && ddlDataSource.length > 0" [dataSource]="ddlDataSource">
+            <!-- Define columns dynamically based on the keys of the first row -->
+            <ng-container *ngFor="let column of displayedColumns">
+              <mat-column-def [matColumnDef]="column">
+                <mat-header-cell *matHeaderCellDef> {{ column }} </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row[column] }} </mat-cell>
+              </mat-column-def>
+            </ng-container>
+          
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+      </mat-card>
+    </div>
+  </mat-card>
+  

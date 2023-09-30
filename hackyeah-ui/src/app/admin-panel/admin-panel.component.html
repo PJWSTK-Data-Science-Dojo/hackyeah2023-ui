@@ -1,0 +1,20 @@
+<mat-card class="db-card">
+  <div class="card-content">
+    <mat-card class="left-column">
+      <div class="input-section">
+        <span>Upload SQLite File:</span>
+        <input class="fileinput" type="file" (change)="onFileSelected($event)">
+        <button mat-raised-button (click)="uploadFile()">Upload</button>
+      </div>
+    </mat-card>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <mat-card class="right-column">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <pre *ngIf="ddl">{{ ddl }}</pre>
+    </mat-card>
+  </div>
+</mat-card>
