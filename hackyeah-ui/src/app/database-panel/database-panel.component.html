@@ -15,7 +15,7 @@
             <textarea matInput placeholder="Enter your question" [(ngModel)]="userInput" 
                       cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" 
                       class="text-input-area"></textarea>
-            <button mat-raised-button color="primary" (click)="generateSql()">Generate SQL</button>
+            <button mat-raised-button color="primary" (click)="generateSql()">Wygeneruje zapytanie</button>
           </div>
         </mat-card>
   
@@ -26,7 +26,7 @@
             <textarea matInput placeholder="Generated SQL" [(ngModel)]="generatedSql" 
             cdkTextareaAutosize class="sql-input" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" 
             class="text-input-area"></textarea>
-            <button mat-raised-button color="accent" (click)="executeQuery()">Execute Query</button>
+            <button mat-raised-button color="accent" (click)="executeQuery()">Wykonaj zapytanie</button>
           </div>
         </mat-card>
       </mat-card>

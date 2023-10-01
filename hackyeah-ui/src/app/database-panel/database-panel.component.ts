@@ -75,7 +75,7 @@ export class DatabasePanelComponent {
       (error: HttpErrorResponse) => {
         this.displayedColumns = []; 
         this.ddlDataSource = [];
-        this.errorMessage = 'Error executing query: ' + (error.error?.error || error.message);
+        this.errorMessage = 'Błąd podczas wykonywania zapytania: ' + (error.error?.error || error.message);
         this.setLoading(false);
       }
     );

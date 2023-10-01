@@ -23,7 +23,7 @@ export class AdminPanelComponent {
   uploadFile(): void {
     if(this.selectedFile == null)
     {
-      this.errorMessage = 'Please select database SQLite file first';
+      this.errorMessage = 'Wgraj plik bazy danych SQLite';
       return;
     }
 
@@ -33,7 +33,7 @@ export class AdminPanelComponent {
         this.errorMessage = null;
       },
       error => {
-        this.errorMessage = error.error?.error || 'Error uploading file.';
+        this.errorMessage = error.error?.error || 'Załadowanie bazy danych nie powiodło się.';
       }
     );
   }
