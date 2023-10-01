@@ -29,7 +29,7 @@ export class DatabasePanelComponent {
   errorMessage:string | null = "";
   displayedColumns: string[] = []; 
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {
+    constructor(private apiService: ApiService, private dialog: MatDialog) {
     this.getDbName()
    }
 

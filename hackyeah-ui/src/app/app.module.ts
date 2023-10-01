@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CommonModule,
     NgxMatFileInputModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

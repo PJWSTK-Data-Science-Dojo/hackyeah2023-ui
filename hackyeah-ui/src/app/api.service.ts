@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5012'; 
+  private isPremiumModelSubject = new BehaviorSubject<boolean>(false);
+  isPremiumModel$ = this.isPremiumModelSubject.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  toggleModel(value: boolean): void {
+    this.isPremiumModelSubject.next(value);
+  }
 
   uploadSqliteFile(file: File): Observable<any> {
     const formData = new FormData();
@@ -17,7 +24,7 @@ export class ApiService {
   }
 
   generateSql(query: string): Observable<any> {
-    const body = { NaturalLanguageInput: query }; 
+    const body = { NaturalLanguageInput: query,IsPremiumModel: this.isPremiumModelSubject.value }; 
     return this.http.post(`${this.apiUrl}/prompt`, body);
   }
 
