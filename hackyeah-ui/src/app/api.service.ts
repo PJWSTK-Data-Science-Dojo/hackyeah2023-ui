@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5012'; 
+  private apiUrl = 'http://localhost:4200/api'; 
   private isPremiumModelSubject = new BehaviorSubject<boolean>(false);
   isPremiumModel$ = this.isPremiumModelSubject.asObservable();
 
