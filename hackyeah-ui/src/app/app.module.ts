@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { SqlOutputComponent } from './sql-output/sql-output.component';
 import { QueryResultComponent } from './query-result/query-result.component';
-import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatabasePanelComponent } from './database-panel/database-panel.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
@@ -21,13 +20,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     TextInputComponent,
     SqlOutputComponent,
-    LoadingCircleComponent,
     TextInputComponent,
     AdminPanelComponent
   ],
@@ -49,7 +48,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     CommonModule,
     NgxMatFileInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
