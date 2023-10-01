@@ -11,6 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { LoadingCircleComponent } from '../loading-circle/loading-circle.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-database-panel',
@@ -29,9 +30,13 @@ export class DatabasePanelComponent {
   errorMessage:string | null = "";
   displayedColumns: string[] = []; 
 
-    constructor(private apiService: ApiService, private dialog: MatDialog) {
-    this.getDbName()
-   }
+  constructor(
+    private apiService: ApiService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
+    this.getDbName();
+  }
 
    setLoading(loading: boolean): void {
     this.isLoading = loading;
@@ -50,35 +55,55 @@ export class DatabasePanelComponent {
     this.apiService.getDbName().subscribe(response=>
       {
         this.dbQueried = response.data;
-      });
-  }
+      },
+      (error: HttpErrorResponse) => {
+        this.displayedColumns = []; 
+        this.ddlDataSource = [];
+        this.setLoading(false);
+        let errMsg = 'Błąd podczas wykonywania zapytania: ' + error.message;
+        this.snackBar.open(errMsg, 'Zamknij', {  
+          duration: 5000,  
+          panelClass: ['error-snackbar']  
+        })});
+      }
 
   generateSql(): void {
     this.setLoading(true);
     this.apiService.generateSql(this.userInput).subscribe(response => {
       this.generatedSql = response.sql;
       this.setLoading(false);
-    });
-  }
+    },
+    (error: HttpErrorResponse) => {
+      this.setLoading(false);
+      let errMsg = 'Błąd podczas wykonywania zapytania: ' + error.message;
+      this.snackBar.open(errMsg, 'Zamknij', {  
+        duration: 5000,  
+        panelClass: ['error-snackbar']  
+      })});
+    }
   
- executeQuery(): void {
-  this.setLoading(true);
-    this.apiService.executeSql(this.generatedSql).subscribe(
-      response => {
-        this.ddlDataSource = response.data;
-        this.errorMessage = null;
-        if (this.ddlDataSource && this.ddlDataSource.length > 0) {
-          this.displayedColumns = Object.keys(this.ddlDataSource[0]);
+  executeQuery(): void {
+    this.setLoading(true);
+      this.apiService.executeSql(this.generatedSql).subscribe(
+        response => {
+          this.ddlDataSource = response.data;
+          this.errorMessage = null;
+          if (this.ddlDataSource && this.ddlDataSource.length > 0) {
+            this.displayedColumns = Object.keys(this.ddlDataSource[0]);
+            this.setLoading(false);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.displayedColumns = []; 
+          this.ddlDataSource = [];
+          this.errorMessage = 'Błąd podczas wykonywania zapytania: ' + (error.error?.error || error.message);
           this.setLoading(false);
+          this.snackBar.open(this.errorMessage, 'Zamknij', {  
+            duration: 5000,  
+            panelClass: ['error-snackbar']  
+          });
         }
-      },
-      (error: HttpErrorResponse) => {
-        this.displayedColumns = []; 
-        this.ddlDataSource = [];
-        this.errorMessage = 'Błąd podczas wykonywania zapytania: ' + (error.error?.error || error.message);
-        this.setLoading(false);
-      }
-    );
+      );
   }
 
 }
