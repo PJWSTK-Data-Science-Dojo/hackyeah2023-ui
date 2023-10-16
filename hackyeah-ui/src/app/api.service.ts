@@ -8,14 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
   private apiUrl = 'http://localhost:4200/api'; 
-  private isPremiumModelSubject = new BehaviorSubject<boolean>(false);
-  isPremiumModel$ = this.isPremiumModelSubject.asObservable();
 
   constructor(private http: HttpClient) { }
-
-  toggleModel(value: boolean): void {
-    this.isPremiumModelSubject.next(value);
-  }
 
   uploadSqliteFile(file: File): Observable<any> {
     const formData = new FormData();
@@ -24,7 +18,7 @@ export class ApiService {
   }
 
   generateSql(query: string): Observable<any> {
-    const body = { NaturalLanguageInput: query,IsPremiumModel: this.isPremiumModelSubject.value }; 
+    const body = { NaturalLanguageInput: query,IsPremiumModel: true }; 
     return this.http.post(`${this.apiUrl}/prompt`, body);
   }
 

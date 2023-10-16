@@ -4,11 +4,6 @@
       <button class="nav" mat-raised-button color="link" routerLink="/user" routerLinkActive="active">User Panel</button>
       <button class="nav" mat-raised-button color="link" routerLink="/admin" routerLinkActive="active">Admin Panel</button>
     </mat-card-content>
-    <mat-slide-toggle class="toggle"
-  [(ngModel)]="isPremiumModel"
-  (change)="toggleModel($event.checked)">
-  {{ isPremiumModel ? 'Premium Model' : 'On Premise Model' }}
-</mat-slide-toggle>
 </div>
   </mat-card>
 <router-outlet></router-outlet>
